@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Page Replacement Visualizer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>Page Replacement Algorithm Visualizer</h1>
+      <p class="sub">FIFO • LRU • Optimal • Second Chance (Clock)</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Inputs</h2>
+
+      <div class="grid">
+        <label>
+          Frames
+          <input id="framesInput" type="number" min="1" max="50" value="3" inputmode="numeric">
+        </label>
+
+        <label>
+          Algorithm
+          <select id="algoSelect">
+            <option value="FIFO">FIFO</option>
+            <option value="LRU">LRU</option>
+            <option value="OPT">Optimal (OPT)</option>
+            <option value="CLOCK">Second Chance (Clock)</option>
+          </select>
+        </label>
+
+        <label class="wide">
+          Reference String (space / comma separated)
+          <input id="refInput" type="text" value="7 0 1 2 0 3 0 4 2 3 0 3 2" autocomplete="off">
+        </label>
+
+        <label>
+          Speed
+          <select id="speedSelect">
+            <option value="1200">Slow</option>
+            <option value="650" selected>Medium</option>
+            <option value="250">Fast</option>
+          </select>
+        </label>
+
+        <div class="buttons wide">
+          <button id="btnInit" class="primary" type="button">Initialize</button>
+          <button id="btnStep" type="button" disabled>Step</button>
+          <button id="btnPlay" type="button" disabled>Play</button>
+          <button id="btnPause" type="button" disabled>Pause</button>
+          <button id="btnReset" class="danger" type="button">Reset</button>
+          <button id="btnRunAll" class="secondary" type="button">Run All & Compare</button>
+        </div>
+      </div>
+
+      <div class="hint">
+        Tip: Try <code>1 2 3 4 1 2 5 1 2 3 4 5</code> with 3 frames.
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Simulation</h2>
+
+      <div id="statusBar" class="status">
+        <div><strong>Step:</strong> <span id="stepNo">0</span>/<span id="totalSteps">0</span></div>
+        <div><strong>Current Page:</strong> <span id="currentPage">-</span></div>
+        <div><strong>Result:</strong> <span id="currentResult">-</span></div>
+      </div>
+
+      <div id="tableWrap" class="tableWrap"></div>
+
+      <div class="stats">
+        <div class="card">
+          <div class="k">Hits</div>
+          <div class="v" id="hits">0</div>
+        </div>
+        <div class="card">
+          <div class="k">Faults</div>
+          <div class="v" id="faults">0</div>
+        </div>
+        <div class="card">
+          <div class="k">Hit Ratio</div>
+          <div class="v" id="hitRatio">0.00</div>
+        </div>
+        <div class="card">
+          <div class="k">Fault Ratio</div>
+          <div class="v" id="faultRatio">0.00</div>
+        </div>
+      </div>
+
+      <h3 class="mt">Event Log</h3>
+      <div id="log" class="log" aria-live="polite"></div>
+    </section>
+
+    <section class="panel"> 
+      <h2>Comparison</h2>
+      <div id="compareWrap" class="compareWrap">
+        <div class="muted">Click <strong>Run All & Compare</strong> to see summary here.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>Built for OS Lab • 2nd year ISE</span>
+  </footer>
+
+  <script src="algorithms.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
